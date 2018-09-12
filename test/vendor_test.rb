@@ -9,53 +9,28 @@ class VendorTest < Minitest::Test
     assert_instance_of Vendor, vendor
   end
 
-  def test_it_has_a_name
+  def test_return_of_name
     vendor = Vendor.new("Rocky Mountain Fresh")
 
     assert_equal "Rocky Mountain Fresh", vendor.name
   end
 
-  def test_inventory_method_starts_with_empty_hash
+  def test_inventory_is_empty
     vendor = Vendor.new("Rocky Mountain Fresh")
+    empty_hash = {}
 
-    assert_equal [], vendor.inventory
+    assert_equal empty_hash, vendor.inventory
   end
 
-  def test_need_stock_method
+  def test_check_stock_method_is_zero
     vendor = Vendor.new("Rocky Mountain Fresh")
-    vendor.stock({:Peaches => 30})
-    assert_equal [{:Peaches => 30}], vendor.inventory
-  end
-
-  def test_there_is_a_check_stock_method
-    # skip
-    vendor = Vendor.new("Rocky Mountain Fresh")
-    vendor.check_stock({:Peaches => 0})
+    vendor.check_stock("Peaches")
     assert_equal 0, vendor.check_stock
   end
 
-  def test_case_name_we_can_increase_stock
-    skip
+  def test_adding_stock_increases_check_stock
     vendor = Vendor.new("Rocky Mountain Fresh")
-
-    vendor.check_stock("Peaches", 30)
-    assert_equal 30, vendor.check_stock("Peaches", 30)
-
-    # vendor.check_stock("Peaches", 30)
-    # vendor.check_stock("Peaches", 25)
-    # vendor.check_stock("Tomatoes", 12)
-    # assert_equal 55, vendor.check_stock
-  end
-
-  def test_inventory_is_updated_in_hash
-    skip
-    vendor = Vendor.new("Rocky Mountain Fresh")
-
-    vendor.check_stock("Peaches", 30)
-    vendor.check_stock("Peaches", 30)
-    vendor.check_stock("Tomatoes", 12)
-
-    expected = {"Peaches"=>55, "Tomatoes"=>12}
-    assert_equal expected, vendor.inventory
+    vendor.stock("Peaches", 30)
+    assert_equal 30, vendor.check_stock
   end
 end

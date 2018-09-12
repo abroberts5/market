@@ -4,16 +4,20 @@ class Vendor
 
   def initialize(name)
     @name         = name
-    @inventory    = []
+    @inventory    = {}
     @check_stock  = 0
-
   end
 
-  def stock(hash)
-    @inventory << hash
+  def stock(item, count)
+    require 'pry'; binding.pry
   end
 
-  def check_stock(hash)
-    @check_stock = @inventory[:item].count
+  def check_stock(item)
+    @inventory[:item].count
   end
+
+  # test.split(',').each do |pair|
+  #
+  #       key,value = pair.split(/:/)
+  #       hash[key.to_sym] = value
 end
